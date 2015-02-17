@@ -40,16 +40,24 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     z-index:0;
   }
   .school-section{
+    position:relative;
     width:80px;
     height:80px;
     border-radius:100%;
     background-color:#dadada;
     margin: -40px auto 0 auto;
     z-index:10; 
+    &.find-match{
+      margin: -90px auto 0 auto;
+    }
     img{
       width:70px;
       margin:5px;
     }
+  }
+  button{
+    width:49%;
+    z-index:1;
   }
   .info{
     .name{

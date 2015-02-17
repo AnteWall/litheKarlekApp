@@ -48,5 +48,9 @@ angular.module('starter.controllers', [])
   $scope.name = "Ante Wall";
 })
 
+.controller('FindMatchCtrl', function($scope) {
+  $scope.name = "Ante Wall";
+})
+
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });

@@ -7030,15 +7030,21 @@ a.button {
     width: 100%;
     z-index: 0; }
   .profile .school-section {
+    position: relative;
     width: 80px;
     height: 80px;
     border-radius: 100%;
     background-color: #dadada;
     margin: -40px auto 0 auto;
     z-index: 10; }
+    .profile .school-section.find-match {
+      margin: -90px auto 0 auto; }
     .profile .school-section img {
       width: 70px;
       margin: 5px; }
+  .profile button {
+    width: 49%;
+    z-index: 1; }
   .profile .info .name {
     text-align: center; }
   .profile .info i, .profile .info h4 {
