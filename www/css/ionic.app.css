@@ -7024,6 +7024,12 @@ a.button {
   .break-line.thick {
     height: 5px; }
 
+.settings h3 {
+  font-size: 14pt;
+  padding: 10px;
+  margin: 0;
+  background-color: #f8f8f8; }
+
 .profile {
   width: 100%; }
   .profile img.profile-image {

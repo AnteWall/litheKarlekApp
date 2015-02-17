@@ -1,0 +1,10 @@
+<ion-view view-title="Inställningar">
+  <ion-content>
+  <div class="settings"> 
+  <h3>Visa mig för</h3>
+  <ion-checkbox ng-repeat="item in lookingFor" ng-model="item.isChecked">{{item.name}}</ion-checkbox>
+  <h3>Övrigt</h3>
+  <ion-toggle ng-model="frozen" toggle-class="toggle-assertive">Frys konto</ion-toggle>
+</div>
+  </ion-content>
+</ion-view>

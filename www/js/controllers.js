@@ -33,15 +33,17 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.controller('SettingsCtrl', function($scope){
+  $scope.frozen = false;
+  $scope.lookingFor = [
+  {
+    "name": "Kvinnor",
+    "isChecked": true
+  },{
+    "name": "Män",
+    "isChecked": true
+  },
+  ]
 })
 
 .controller('ProfileCtrl', function($scope) {
@@ -52,5 +54,4 @@ angular.module('starter.controllers', [])
   $scope.name = "Ante Wall";
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+

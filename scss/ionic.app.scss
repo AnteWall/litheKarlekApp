@@ -32,6 +32,14 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   }
 }
 
+.settings{
+  h3{
+    font-size:14pt;
+    padding: 10px;
+    margin:0;
+    background-color: $stable;
+  }
+}
 
 .profile{
   width:100%;
