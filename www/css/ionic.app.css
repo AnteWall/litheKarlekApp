@@ -7052,7 +7052,8 @@ a.button {
     width: 49%;
     z-index: 1; }
   .profile .info .name {
-    text-align: center; }
+    text-align: center;
+    font-size: 14pt; }
   .profile .info i, .profile .info h4 {
     font-size: 12pt;
     font-weight: bold;
