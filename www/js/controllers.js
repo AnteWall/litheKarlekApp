@@ -44,5 +44,9 @@ angular.module('starter.controllers', [])
   ];
 })
 
+.controller('ProfileCtrl', function($scope) {
+  $scope.name = "Ante Wall";
+})
+
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });

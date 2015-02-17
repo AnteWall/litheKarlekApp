@@ -7014,3 +7014,34 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+.break-line {
+  width: 100%;
+  height: 1px;
+  background-color: #dadada;
+  margin-top: -5px;
+  padding: 0; }
+  .break-line.thick {
+    height: 5px; }
+
+.profile {
+  width: 100%; }
+  .profile img.profile-image {
+    width: 100%;
+    z-index: 0; }
+  .profile .school-section {
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    background-color: #dadada;
+    margin: -40px auto 0 auto;
+    z-index: 10; }
+    .profile .school-section img {
+      width: 70px;
+      margin: 5px; }
+  .profile .info .name {
+    text-align: center; }
+  .profile .info i, .profile .info h4 {
+    font-size: 12pt;
+    font-weight: bold;
+    display: inline-block; }
