@@ -64,6 +64,7 @@ angular.module('starter.controllers', [])
   $scope.test = ['one','two']
   $scope.update = {}
   getEducations();
+  getProfile();
 
   $scope.updateProfile = function(){
     apiFactory.updateProfile($scope.update).success(function(data){
@@ -77,7 +78,13 @@ angular.module('starter.controllers', [])
     })
   }
 
-
+  function getProfile(){
+    apiFactory.getProfile().success(function(data){
+      $scope.update.description = data.description;
+      $scope.update.education = data.education;
+    }).error(function(error){
+    });
+  }
 
   function getEducations(){
     apiFactory.getEducations().success(function(data){
