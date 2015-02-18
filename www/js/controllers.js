@@ -62,8 +62,17 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('ProfileCtrl', function($scope) {
-  $scope.name = "Ante Wall";
+.controller('ProfileCtrl', function($scope,apiFactory) {
+  $scope.profile;
+
+  getProfile();
+
+  function getProfile(){
+    apiFactory.getProfile().success(function(data){
+      $scope.profile = data;
+    }).error(function(error){
+    });
+  }
 })
 
 .controller('FindMatchCtrl', function($scope) {
