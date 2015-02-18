@@ -1,5 +1,23 @@
 angular.module('starter.controllers', [])
 
+.controller('LoginCtrl', function($scope, auth, $state, store,$location) {
+  auth.signin({
+    closable: false,
+    // This asks for the refresh token
+    // So that the user never has to log in again
+    authParams: {
+      scope: 'openid offline_access'
+    }
+  }, function(profile, idToken, accessToken, state, refreshToken) {
+    store.set('profile', profile);
+    store.set('token', idToken);
+    store.set('refreshToken', refreshToken);
+    $state.go('app.profile');
+  }, function(error) {
+    console.log("There was an error logging in", error);
+  });
+})
+
 .controller('AppCtrl', function($scope, $ionicModal, $timeout,$location) {
   // Form data for the login modal
   $scope.loginData = {};
@@ -7,36 +25,24 @@ angular.module('starter.controllers', [])
   $scope.go = function(path){
     $location.path(path);
   }
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
+})
+.controller('DashCtrl', function($scope, $http,store) {
 
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
+  $scope.callApi = function() {
+    // Just call the API as you'd do using $http
+    $http({
+      url: 'http://localhost:3000/secured/ping',
+      method: 'GET'
+    }).then(function() {
+      console.log(store.get('profile'));
+      alert("We got the secured data successfully");
+    }, function() {
+      alert("Please download the API seed so that you can call it.");
+    });
+  }
 })
 
-.controller('SettingsCtrl', function($scope){
+.controller('SettingsCtrl', function($scope,auth, $state, store){
   $scope.frozen = false;
   $scope.lookingFor = [
   {
@@ -47,6 +53,13 @@ angular.module('starter.controllers', [])
     "isChecked": true
   },
   ]
+  $scope.logout = function() {
+    auth.signout();
+    store.remove('token');
+    store.remove('profile');
+    store.remove('refreshToken');
+    $state.go('login');
+  }
 })
 
 .controller('ProfileCtrl', function($scope) {
@@ -56,5 +69,12 @@ angular.module('starter.controllers', [])
 .controller('FindMatchCtrl', function($scope) {
   $scope.name = "Ante Wall";
 })
-
-
+.controller('AccountCtrl', function($scope, auth, $state, store) {
+  $scope.logout = function() {
+    auth.signout();
+    store.remove('token');
+    store.remove('profile');
+    store.remove('refreshToken');
+    $state.go('login');
+  }
+});
