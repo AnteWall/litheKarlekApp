@@ -52,7 +52,15 @@ angular.module('starter', ['ionic',
       requiresLogin: true
     }
   })
-
+  .state('app.editprofile',{
+    url: '/editprofile',
+    views: {
+      'menuContent':{
+        templateUrl: "templates/edit_profile.html",
+        controller: 'EditProfileCtrl'
+      }
+    }
+  })
 .state('app.findmatch', {
       url: "/findmatch",
       views: {
@@ -62,14 +70,7 @@ angular.module('starter', ['ionic',
         }
       }
     })
-  .state('app.browse', {
-    url: "/browse",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/browse.html"
-      }
-    }
-  })
+
   .state('app.profile', {
     url: "/profile",
     views:{

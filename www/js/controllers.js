@@ -74,7 +74,19 @@ angular.module('starter.controllers', [])
     });
   }
 })
+.controller('EditProfileCtrl',function($scope,apiFactory) {
+  $scope.educations;
+  $scope.test = ['one','two']
+  getEducations();
 
+  function getEducations(){
+    apiFactory.getEducations().success(function(data){
+      $scope.educations = data;
+    }).error(function(error){
+      console.log("error loading educations")
+    })
+  } 
+})
 .controller('FindMatchCtrl', function($scope) {
   $scope.name = "Ante Wall";
 })

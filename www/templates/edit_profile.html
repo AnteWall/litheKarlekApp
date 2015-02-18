@@ -1,0 +1,21 @@
+<ion-view view-title="Profilinställningar">
+<ion-content>
+<div class="list">
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Utbildning
+    </div>
+    <select ng-model="selectedEducation" ng-options="item.name for
+      item in educations track by item.id">
+    </select>
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Om mig</span>
+    <textarea></textarea>
+  </label>
+  <button class="button button-positive button-block" ng-click="logout()">
+    Uppdatera
+  </button>
+</div>
+</ion-content>
+</ion-view>

@@ -7,5 +7,10 @@ angular.module('starter.services', [])
   apiFactory.getProfile = function() {
     return $http.get(urlBase + '/users/me'); 
   }
+  
+  apiFactory.getEducations = function(){
+    return $http.get(urlBase + '/education/all');
+  }
+
   return apiFactory;
 });
