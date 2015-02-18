@@ -26,21 +26,6 @@ angular.module('starter.controllers', [])
     $location.path(path);
   }
 })
-.controller('DashCtrl', function($scope, $http,store) {
-
-  $scope.callApi = function() {
-    // Just call the API as you'd do using $http
-    $http({
-      url: 'http://localhost:3000/secured/ping',
-      method: 'GET'
-    }).then(function() {
-      console.log(store.get('profile'));
-      alert("We got the secured data successfully");
-    }, function() {
-      alert("Please download the API seed so that you can call it.");
-    });
-  }
-})
 
 .controller('SettingsCtrl', function($scope,auth, $state, store){
   $scope.frozen = false;
@@ -74,10 +59,25 @@ angular.module('starter.controllers', [])
     });
   }
 })
-.controller('EditProfileCtrl',function($scope,apiFactory) {
+.controller('EditProfileCtrl',function($scope,apiFactory,$location) {
   $scope.educations;
   $scope.test = ['one','two']
+  $scope.update = {}
   getEducations();
+
+  $scope.updateProfile = function(){
+    apiFactory.updateProfile($scope.update).success(function(data){
+      if(data.success){
+        $location.path('app/profile')
+      }else{
+        $scope.error = "Fel när vi försökte spara din data";
+      } 
+    }).error(function(){
+      console.log("error") 
+    })
+  }
+
+
 
   function getEducations(){
     apiFactory.getEducations().success(function(data){
@@ -86,6 +86,9 @@ angular.module('starter.controllers', [])
       console.log("error loading educations")
     })
   } 
+
+
+
 })
 .controller('FindMatchCtrl', function($scope) {
   $scope.name = "Ante Wall";

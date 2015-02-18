@@ -7862,3 +7862,5 @@ textarea {
     font-size: 12pt;
     font-weight: bold;
     display: inline-block; }
+  .profile .info .description {
+    min-height: 200px; }

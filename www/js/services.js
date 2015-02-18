@@ -8,9 +8,14 @@ angular.module('starter.services', [])
     return $http.get(urlBase + '/users/me'); 
   }
   
+  apiFactory.updateProfile = function(data) {
+    console.log(data);
+    return $http.post(urlBase + '/users/update', data);
+  }
+
   apiFactory.getEducations = function(){
     return $http.get(urlBase + '/education/all');
   }
-
+  
   return apiFactory;
 });
