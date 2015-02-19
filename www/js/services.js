@@ -17,23 +17,8 @@ angular.module('starter.services', [])
     }
   }
 }])
-.factory('$localStorage', ['$window', function($window) {
-  return {
-    set: function(key, value) {
-      $window.localStorage[key] = value;
-    },
-    get: function(key, defaultValue) {
-      return $window.localStorage[key] || defaultValue;
-    },
-    setObject: function(key, value) {
-      $window.localStorage[key] = JSON.stringify(value);
-    },
-    getObject: function(key) {
-      return JSON.parse($window.localStorage[key] || '{}');
-    }
-  }
-}])
-.factory('apiFactory', function($http,$localStorage,store){
+
+.factory('apiFactory', function($http,store){
 
   var urlBase = 'http://192.168.1.102:3000/api';
   var apiFactory = {};
@@ -51,7 +36,7 @@ angular.module('starter.services', [])
     return $http.get(urlBase + '/education/all');
   }
   
-  apiFactory.uploadImage = function(imageURI){
+  apiFactory.uploadImage = function(imageURI,suCall,erCall){
 
     var ft = new FileTransfer(),
     options = new FileUploadOptions();
@@ -63,13 +48,7 @@ angular.module('starter.services', [])
     options.params = { // Whatever you populate options.params with, will be available in req.body at the server-side.
        "description": "Uploaded from my phone",
     };
-    ft.upload(imageURI, urlBase + "/image/new",
-    function (e) {
-      console.log("Worked!");
-     },
-    function (e) {
-      console.log("failed!" + e);
-    }, options);
+    ft.upload(imageURI, urlBase + "/image/new",suCall,erCall, options);
   }
   
   return apiFactory;

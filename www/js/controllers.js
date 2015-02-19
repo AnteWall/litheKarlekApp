@@ -3,11 +3,11 @@ angular.module('starter.controllers', [])
 .controller('LoginCtrl', function($scope, auth, $state, store,$location) {
   auth.signin({
     closable: false,
-    // This asks for the refresh token
-    // So that the user never has to log in again
-    authParams: {
-      scope: 'openid offline_access'
-    }
+  // This asks for the refresh token
+  // So that the user never has to log in again
+  authParams: {
+    scope: 'openid offline_access'
+  }
   }, function(profile, idToken, accessToken, state, refreshToken) {
     store.set('profile', profile);
     store.set('token', idToken);
@@ -18,19 +18,34 @@ angular.module('starter.controllers', [])
   });
 })
 .controller('EditPhotosCtrl', function($scope,Camera,apiFactory){
-  $scope.takenPhoto; 
-  
+
+   $scope.selectPhoto = function(){
+    Camera.getPicture({ sourceType: 0 }).then(function(imageURI) {
+      $scope.takenPhoto = imageURI;
+      d = apiFactory.uploadImage(imageURI,function(d){
+        console.log(JSON.parse(d.response).error);
+        $scope.error = JSON.parse(d.response).error;
+        console.log($scope.error)
+      },function(err){
+        console.err(err);
+      })
+    }, function(err) {
+
+    });
+  }
+
   $scope.takePhoto = function(){
     Camera.getPicture().then(function(imageURI) {
-      console.log(imageURI);
       $scope.takenPhoto = imageURI;
-      apiFactory.uploadImage(imageURI).success(function(){
-        console.log("workds");
-      }).error(function(){
-        console.log("error");
-      });
+      d = apiFactory.uploadImage(imageURI,function(d){
+        console.log(JSON.parse(d.response).error);
+        $scope.error = JSON.parse(d.response).error;
+        console.log($scope.error)
+      },function(err){
+        console.err(err);
+      })
     }, function(err) {
-      console.err(err);
+
     });
   }
 
@@ -47,21 +62,21 @@ angular.module('starter.controllers', [])
 .controller('SettingsCtrl', function($scope,auth, $state, store){
   $scope.frozen = false;
   $scope.lookingFor = [
-  {
-    "name": "Kvinnor",
-    "isChecked": true
-  },{
-    "name": "Män",
-    "isChecked": true
-  },
-  ]
-  $scope.logout = function() {
-    auth.signout();
-    store.remove('token');
-    store.remove('profile');
-    store.remove('refreshToken');
-    $state.go('login');
-  }
+{
+  "name": "Kvinnor",
+"isChecked": true
+},{
+  "name": "Män",
+"isChecked": true
+},
+]
+$scope.logout = function() {
+  auth.signout();
+  store.remove('token');
+  store.remove('profile');
+  store.remove('refreshToken');
+  $state.go('login');
+}
 })
 
 .controller('ProfileCtrl', function($scope,apiFactory,$ionicLoading,$ionicSlideBoxDelegate) {
@@ -70,9 +85,9 @@ angular.module('starter.controllers', [])
 
   function getProfile(){
     $ionicLoading.show({
-     template: 'Laddar...' 
+      template: 'Laddar...' 
     });
- 
+
     apiFactory.getProfile().success(function(data){
       $scope.profile = data;
       $ionicSlideBoxDelegate.update();
@@ -102,7 +117,7 @@ angular.module('starter.controllers', [])
 
   function getProfile(){
     $ionicLoading.show({
-     template: 'Laddar...' 
+      template: 'Laddar...' 
     });
     apiFactory.getProfile().success(function(data){
       $scope.update.description = data.description;

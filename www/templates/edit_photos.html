@@ -1,12 +1,22 @@
 <ion-view view-title="Bildinställningar">
 <ion-content>
-{{error}}
-<img ng-src="{{takenPhoto}}" >
-<button class="button button-positive button-block" ng-click="takePhoto()">
-  Ta bild
-</button>
-<button class="button button-positive button-block" ng-click="uploadPhoto()">
-  Välj bild 
-</button>
+<div class="error">
+  {{error}}
+</div>
+<div class="row">
+  <div class="col">
+    <button class="button button-positive button-block" ng-click="takePhoto()">
+      Ta bild
+    </button> 
+  </div>
+
+  <div class="col">
+    <button class="button button-positive button-block" ng-click="selectPhoto()">
+      Välj bild 
+    </button>
+  </div>
+</div>
+
+
 </ion-content>
 </ion-view>
