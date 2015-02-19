@@ -7833,6 +7833,10 @@ textarea {
   margin: 0;
   background-color: #f8f8f8; }
 
+.slider-pager {
+  text-align: left !important;
+  margin-left: 10px !important; }
+
 .profile {
   width: 100%; }
   .profile img.profile-image {
