@@ -27,8 +27,9 @@ angular.module('starter', ['ionic',
 })
 
 .config(function($stateProvider, $urlRouterProvider, authProvider, $httpProvider,
-  jwtInterceptorProvider) {
+  jwtInterceptorProvider,$compileProvider) {
 
+  $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|http?ftp|file|blob|content):|data:image\//);
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
@@ -50,6 +51,15 @@ angular.module('starter', ['ionic',
     controller: 'AppCtrl',
     data: {
       requiresLogin: true
+    }
+  })
+  .state('app.editphotos',{
+    url: '/editphotos',
+    views: {
+      'menuContent':{
+        templateUrl: "templates/edit_photos.html",
+        controller: 'EditPhotosCtrl'
+      }
     }
   })
   .state('app.editprofile',{

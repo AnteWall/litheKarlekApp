@@ -1,9 +1,8 @@
 <ion-view view-title="Profil" scroll="true">
   <ion-content>
-
     <div class="profile">
-      <ion-slide-box show-pager="true" auto-play="true" on-slide-changed="slideHasChanged($index)">
-        <ion-slide ng-repeat="image in images">
+      <ion-slide-box show-pager="true" does-continue="true" auto-play="true" on-slide-changed="slideHasChanged($index)">
+        <ion-slide ng-repeat="image in profile.images_url">
         <img class="profile-image" ng-style="{'background-image': 'url(' + image
         + ')'}">
         </ion-slide>
