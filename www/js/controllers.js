@@ -66,7 +66,6 @@ angular.module('starter.controllers', [])
 
 .controller('ProfileCtrl', function($scope,apiFactory,$ionicLoading,$ionicSlideBoxDelegate) {
   $scope.profile;
-  $scope.images = ["https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/1483030_10204500224600786_5797545058229427005_n.jpg?oh=c859bf8a21ecb7d9d8e8d9f8b0d9e466&oe=558A67E9&__gda__=1431226320_6b1864eafca1e387bd7044aa27db77a9","https://scontent-ams.xx.fbcdn.net/hphotos-xpa1/v/t1.0-9/10334314_10152689726059713_1090164303467743202_n.jpg?oh=875a92fec7accaeebc26c807db612c7f&oe=558A496F","https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/1150348_745846915463162_5547011624121043311_n.jpg?oh=9c9d6541f428d0200b9d73601534d10e&oe=554F0433&__gda__=1430948594_fdd64140d0d6e3d1521c39cc99517ac0"]
   getProfile();
 
   function getProfile(){
@@ -83,9 +82,8 @@ angular.module('starter.controllers', [])
     });
   }
 })
-.controller('EditProfileCtrl',function($scope,apiFactory,$location) {
+.controller('EditProfileCtrl',function($scope,apiFactory,$location,$ionicLoading) {
   $scope.educations;
-  $scope.test = ['one','two']
   $scope.update = {}
   getEducations();
   getProfile();
@@ -103,10 +101,16 @@ angular.module('starter.controllers', [])
   }
 
   function getProfile(){
+    $ionicLoading.show({
+     template: 'Laddar...' 
+    });
     apiFactory.getProfile().success(function(data){
       $scope.update.description = data.description;
       $scope.update.education = data.education;
+      $scope.update.name = data.name;
+      $ionicLoading.hide();
     }).error(function(error){
+      $ionicLoading.hide();
     });
   }
 

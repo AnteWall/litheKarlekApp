@@ -1,11 +1,11 @@
 <ion-view view-title="Profilinställningar">
 <ion-content>
 {{error}}
-
-<button class="button button-positive button-block" ng-click="takePhoto()">
-  Ta foto
-</button>
 <div class="list">
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Visningsnamn</span>
+    <input type="text" ng-model="update.name" placeholder="Kalle">
+  </label>
   <label class="item item-input item-select">
     <div class="input-label">
       Utbildning
