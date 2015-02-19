@@ -34,6 +34,19 @@ textarea{
   }
 }
 
+ul.gallery{
+  list-style:none;
+  li{
+    border: 4px solid $stable;
+    width:120px;
+    height:120px;
+    display: inline-block;
+    background-repeat: no-repeat;
+  background-size: cover;
+  background-position:center;
+  }
+}
+
 .settings{
   h3{
     font-size:14pt;

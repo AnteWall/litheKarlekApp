@@ -17,15 +17,59 @@ angular.module('starter.controllers', [])
     console.log("There was an error logging in", error);
   });
 })
-.controller('EditPhotosCtrl', function($scope,Camera,apiFactory){
+.controller('EditPhotosCtrl', function($scope,Camera,apiFactory,$ionicActionSheet,$ionicLoading){
+  $scope.images;
+  getPhotos();
 
-   $scope.selectPhoto = function(){
+  function getPhotos(){
+    $ionicLoading.show({
+      template: 'Laddar...' 
+    });
+
+
+    apiFactory.getUserImages().success(function(data){
+      $scope.images = data;
+      $ionicLoading.hide();
+    }).error(function(){
+
+      $ionicLoading.hide();
+    })
+  }
+
+  $scope.photoOptions = function(id){
+
+    var hideSheet = $ionicActionSheet.show({
+      destructiveText: 'Ta bort',
+        titleText: 'Redigera bild',
+        cancelText: 'Ångra',
+        cancel: function() {
+          // add cancel code..
+        },
+        destructiveButtonClicked: function(index) {
+          apiFactory.deleteImage(id).success(function(){
+            getPhotos();
+          }).error(function(){
+          })
+          return true;
+        },
+        buttonClicked: function(index) {
+          return true;
+        }
+    });
+
+    function hideDelSheet(){
+      hideSheet.close();
+      getPhotos();
+    }
+
+  }
+
+  $scope.selectPhoto = function(){
     Camera.getPicture({ sourceType: 0 }).then(function(imageURI) {
       $scope.takenPhoto = imageURI;
       d = apiFactory.uploadImage(imageURI,function(d){
-        console.log(JSON.parse(d.response).error);
         $scope.error = JSON.parse(d.response).error;
-        console.log($scope.error)
+        getPhotos();
       },function(err){
         console.err(err);
       })
@@ -38,9 +82,8 @@ angular.module('starter.controllers', [])
     Camera.getPicture().then(function(imageURI) {
       $scope.takenPhoto = imageURI;
       d = apiFactory.uploadImage(imageURI,function(d){
-        console.log(JSON.parse(d.response).error);
         $scope.error = JSON.parse(d.response).error;
-        console.log($scope.error)
+        getPhotos();
       },function(err){
         console.err(err);
       })
@@ -79,7 +122,7 @@ $scope.logout = function() {
 }
 })
 
-.controller('ProfileCtrl', function($scope,apiFactory,$ionicLoading,$ionicSlideBoxDelegate) {
+.controller('ProfileCtrl', function($scope,apiFactory,$ionicLoading,$ionicSlideBoxDelegate,$location) {
   $scope.profile;
   getProfile();
 
@@ -89,6 +132,9 @@ $scope.logout = function() {
     });
 
     apiFactory.getProfile().success(function(data){
+      if(data.name == undefined || data.name == ""){
+        $location.path('app/editprofile')
+      }
       $scope.profile = data;
       $ionicSlideBoxDelegate.update();
       $ionicLoading.hide();

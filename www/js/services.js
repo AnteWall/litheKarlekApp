@@ -35,6 +35,14 @@ angular.module('starter.services', [])
   apiFactory.getEducations = function(){
     return $http.get(urlBase + '/education/all');
   }
+
+  apiFactory.getUserImages = function(){
+    return $http.get(urlBase + '/images/me');
+  }
+
+  apiFactory.deleteImage = function(id){
+    return $http.get(urlBase + '/image/'+ id + '/delete');
+  }
   
   apiFactory.uploadImage = function(imageURI,suCall,erCall){
 

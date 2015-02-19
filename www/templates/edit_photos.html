@@ -3,7 +3,7 @@
 <div class="error">
   {{error}}
 </div>
-<div class="row">
+<div class="row" ng-hide="images.length >= 7">
   <div class="col">
     <button class="button button-positive button-block" ng-click="takePhoto()">
       Ta bild
@@ -17,6 +17,11 @@
   </div>
 </div>
 
+<ul class="gallery padding">
+  <li ng-repeat="image in images" ng-click="photoOptions(image.id)" ng-style="{'background-image': 'url(' +
+  image.get_url + ')'}">
+  </li>
+</ul>
 
 </ion-content>
 </ion-view>
