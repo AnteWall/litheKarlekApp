@@ -2,10 +2,13 @@
   <ion-content>
 
     <div class="profile">
-      <img class="profile-image"
-    src="https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/1483030_10204500224600786_5797545058229427005_n.jpg?oh=c859bf8a21ecb7d9d8e8d9f8b0d9e466&oe=558A67E9&__gda__=1431226320_6b1864eafca1e387bd7044aa27db77a9"
-    >
-    <div class="break-line thick"></div>
+      <ion-slide-box auto-play="true" on-slide-changed="slideHasChanged($index)">
+        <ion-slide ng-repeat="image in images">
+        <img class="profile-image" ng-style="{'background-image': 'url(' + image
+        + ')'}">
+        </ion-slide>
+        </ion-slide-box>
+          <div class="break-line thick"></div>
     <div class="school-section">
       <img ng-src="{{profile.education.image_path}}">
     </div>
