@@ -20,7 +20,8 @@ angular.module('starter.services', [])
 
 .factory('apiFactory', function($http,store){
 
-  var urlBase = 'http://192.168.1.102:3000/api';
+  //var urlBase = 'http://192.168.1.102:3000/api';
+  var urlBase = 'http://localhost:3000/api';
   var apiFactory = {};
 
   apiFactory.getProfile = function() {

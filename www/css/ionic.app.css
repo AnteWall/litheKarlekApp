@@ -13,7 +13,7 @@ $energized:                       #f0b840 !default;
 $assertive:                       #ef4e3a !default;
 $royal:                           #8a6de9 !default;
 $dark:                            #444 !default;
-*/
+ */
 /*!
   Ionicons, v1.5.2
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -7827,12 +7827,15 @@ textarea {
   .break-line.thick {
     height: 5px; }
 
+#edit-photos p.no-images {
+  color: #808080;
+  font-size: 14pt;
+  text-align: center;
+  padding: 20px 0; }
+
 ul.gallery {
-  list-style: none;
-  width: 400px;
-  margin: auto; }
+  list-style: none; }
   ul.gallery li {
-    text-align: center;
     border: 4px solid #f8f8f8;
     width: 120px;
     height: 120px;
@@ -7853,6 +7856,15 @@ ul.gallery {
 
 .profile {
   width: 100%; }
+  .profile .edit-photos {
+    position: absolute;
+    z-index: 10;
+    font-size: 16pt;
+    margin: 15px;
+    right: 0;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    text-align: right;
+    color: white; }
   .profile img.profile-image {
     width: 100%;
     min-height: 350px;

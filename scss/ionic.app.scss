@@ -13,7 +13,7 @@ $energized:                       #f0b840 !default;
 $assertive:                       #ef4e3a !default;
 $royal:                           #8a6de9 !default;
 $dark:                            #444 !default;
-*/
+ */
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
@@ -33,7 +33,17 @@ textarea{
     height:5px;
   }
 }
-
+#edit-photos{
+  
+  p{
+    &.no-images{
+      color:#808080;
+      font-size:14pt;
+      text-align:center;
+      padding:20px 0;
+    }
+  } 
+}
 ul.gallery{
   list-style:none;
   li{
@@ -42,8 +52,8 @@ ul.gallery{
     height:120px;
     display: inline-block;
     background-repeat: no-repeat;
-  background-size: cover;
-  background-position:center;
+    background-size: cover;
+    background-position:center;
   }
 }
 
@@ -61,13 +71,25 @@ ul.gallery{
 }
 .profile{
   width:100%;
+
+  .edit-photos{
+    position: absolute;
+    z-index: 10;
+    font-size: 16pt;
+    margin: 15px;
+    right: 0;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    text-align: right;
+    color: white;
+  }
+
   img.profile-image{
     width:100%;
     min-height:350px;
     z-index:0;
     background-repeat: no-repeat;
-  background-size: cover;
-  background-position:center;
+    background-size: cover;
+    background-position:center;
   }
   .school-section{
     position:relative;

@@ -1,6 +1,10 @@
 <ion-view view-title="Profil" scroll="true">
   <ion-content>
     <div class="profile">
+      <div ng-click="go('app/editphotos')" class="edit-photos">
+       <i class="icon ion-edit"></i>
+      </div>
+      <img class="profile-image" ng-hide="profile.images_url.length > 0" ng-style="{'background-image':'url(img/default-profile.png)'}">
       <ion-slide-box show-pager="true" does-continue="true" auto-play="true" on-slide-changed="slideHasChanged($index)">
         <ion-slide ng-repeat="image in profile.images_url">
         <img class="profile-image" ng-style="{'background-image': 'url(' + image
