@@ -146,6 +146,7 @@ $scope.logout = function() {
 .controller('EditProfileCtrl',function($scope,apiFactory,$location,$ionicLoading) {
   $scope.educations;
   $scope.update = {}
+  $scope.genders = ['Man','Kvinna']
   getEducations();
   getProfile();
 
@@ -169,6 +170,7 @@ $scope.logout = function() {
       $scope.update.description = data.description;
       $scope.update.education = data.education;
       $scope.update.name = data.name;
+      $scope.update.gender = data.gender;
       $ionicLoading.hide();
     }).error(function(error){
       $ionicLoading.hide();

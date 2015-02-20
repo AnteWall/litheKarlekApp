@@ -15,6 +15,17 @@
       item in educations track by item.id">
     </select>
   </label>
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Kön
+    </div>
+    <select ng-model="update.gender" ng-options="item for
+      item in genders">
+    </select>
+  </label>
+
+
+
   <label class="item item-input item-stacked-label">
     <span class="input-label">Om mig</span>
     <textarea ng-model="update.description"></textarea>
