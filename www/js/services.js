@@ -32,8 +32,11 @@ angular.module('starter.services', [])
   }
   
   apiFactory.updateProfile = function(data) {
-    console.log(data);
     return $http.post(urlBase + '/users/update', data);
+  }
+
+  apiFactory.updateSettings = function(data){
+    return $http.post(urlBase + '/users/settings/update', data);
   }
 
   apiFactory.getEducations = function(){

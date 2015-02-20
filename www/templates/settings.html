@@ -1,13 +1,21 @@
 <ion-view title="Inställningar">
-  <ion-content>
-  <div class="settings"> 
+<ion-content>
+<div class="settings"> 
   <h3>Visa mig för</h3>
-  <ion-checkbox ng-repeat="item in lookingFor" ng-model="item.isChecked">{{item.name}}</ion-checkbox>
+  <ion-checkbox ng-repeat="item in update.lookingFor" ng-model="item.isChecked">{{item.name}}</ion-checkbox>
   <h3>Övrigt</h3>
-  <ion-toggle ng-model="frozen" toggle-class="toggle-assertive">Frys konto</ion-toggle>
+  <ion-toggle ng-model="update.frozen" toggle-class="toggle-assertive">Frys
+  konto</ion-toggle>
+  <p>Ifall du fryser kontot kommer du inte längre visas i matchningar eller i
+  sökfunktionen.</p>
 </div>
+<div class="col">
+  <button class="button button-positive button-block" ng-click="updateSettings()">
+    Uppdatera
+  </button>
   <button class="button button-positive button-block" ng-click="logout()">
-    Logout
-    </button>
-  </ion-content>
+    Logga ut
+  </button>
+</div>
+</ion-content>
 </ion-view>

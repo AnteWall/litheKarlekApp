@@ -102,17 +102,51 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('SettingsCtrl', function($scope,auth, $state, store){
+.controller('SettingsCtrl', function($scope,auth, $state, store, apiFactory,$ionicLoading){
   $scope.frozen = false;
-  $scope.lookingFor = [
+  $scope.update = {};
+  $scope.update.lookingFor = [
 {
   "name": "Kvinnor",
-"isChecked": true
+"isChecked": false
 },{
   "name": "Män",
-"isChecked": true
+"isChecked": false
 },
 ]
+  getProfile();
+
+  function getProfile(){
+    $ionicLoading.show({
+      template: 'Laddar...' 
+    });
+
+    apiFactory.getProfile().success(function(data){
+      if(data.name == undefined || data.name == ""){
+        $location.path('app/editprofile')
+      }
+      $scope.update.frozen = data.frozen_account;
+      angular.forEach(data.view_for,function(d){
+        angular.forEach($scope.update.lookingFor,function(obj){
+          if(obj.name == d){
+            obj.isChecked = true;
+          }
+        })
+      })
+      $ionicLoading.hide();
+    }).error(function(error){
+      $ionicLoading.hide();
+    });
+  }
+   $scope.updateSettings = function(){
+      apiFactory.updateSettings($scope.update).success(function(data){
+        if(data.success){
+          $state.go('app.profile')
+        } 
+      }).error(function(){
+        console.log("error");  
+      }); 
+   }
 $scope.logout = function() {
   auth.signout();
   store.remove('token');
