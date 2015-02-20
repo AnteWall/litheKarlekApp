@@ -107,10 +107,12 @@ angular.module('starter.controllers', [])
   $scope.update = {};
   $scope.update.lookingFor = [
 {
-  "name": "Kvinnor",
-"isChecked": false
+  "name": "Kvinna",
+  "isChecked": false,
+  "displayName": "Kvinnor"
 },{
-  "name": "Män",
+  "name": "Man",
+  "displayName": "Män",
 "isChecked": false
 },
 ]
