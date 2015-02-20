@@ -24,7 +24,10 @@ angular.module('starter.services', [])
   var urlBase = 'http://localhost:3000/api';
   var apiFactory = {};
 
-  apiFactory.getProfile = function() {
+  apiFactory.getProfile = function(id) {
+    if(id != undefined){
+      return $http.get(urlBase + '/users/' + id); 
+    }
     return $http.get(urlBase + '/users/me'); 
   }
   
