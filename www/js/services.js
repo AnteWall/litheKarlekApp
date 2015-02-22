@@ -22,6 +22,7 @@ angular.module('starter.services', [])
 
   //var urlBase = 'http://192.168.1.102:3000/api';
   var urlBase = 'http://localhost:3000/api';
+  //var urlBase = 'http://lithekarlek.klante.webfactional.com/api';
   var apiFactory = {};
 
   apiFactory.getProfile = function(id) {
@@ -49,6 +50,10 @@ angular.module('starter.services', [])
 
   apiFactory.deleteImage = function(id){
     return $http.get(urlBase + '/image/'+ id + '/delete');
+  }
+
+  apiFactory.findMatches = function(){
+    return $http.get(urlBase + '/matches/find');
   }
   
   apiFactory.uploadImage = function(imageURI,suCall,erCall){

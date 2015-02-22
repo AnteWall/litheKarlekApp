@@ -224,8 +224,34 @@ $scope.logout = function() {
 
 
 })
-.controller('FindMatchCtrl', function($scope) {
-  $scope.name = "Ante Wall";
+.controller('FindMatchCtrl', function($scope,apiFactory,$ionicLoading,$ionicSlideBoxDelegate) {
+  $scope.matches;
+  findMatches();
+
+  $scope.approve = function(){
+    removeMatch(); 
+
+  }
+  
+  function removeMatch(){
+    $scope.matches.splice(0,1);
+  }
+
+  function findMatches(){
+    $ionicLoading.show({
+      template: 'Letar efter matchningar...' 
+    });
+
+    apiFactory.findMatches().success(function(data){
+      console.log(data);
+      $scope.matches = data;
+      $ionicSlideBoxDelegate.update();
+      $ionicLoading.hide();
+    }).error(function(err){
+      console.log(err);
+      $ionicLoading.hide();
+    });
+  }
 })
 .controller('AccountCtrl', function($scope, auth, $state, store) {
   $scope.logout = function() {
