@@ -19,19 +19,20 @@ angular.module('starter.controllers', [])
 })
 .controller('EditPhotosCtrl', function($scope,Camera,apiFactory,$ionicActionSheet,$ionicLoading){
   $scope.images;
+  $scope.error;
   getPhotos();
 
   function getPhotos(){
+    $scope.error;
     $ionicLoading.show({
       template: 'Laddar...' 
     });
-
 
     apiFactory.getUserImages().success(function(data){
       $scope.images = data;
       $ionicLoading.hide();
     }).error(function(){
-
+      $scope.error = "Fel när vi försökte ladda dina bilder.";
       $ionicLoading.hide();
     })
   }
@@ -49,6 +50,7 @@ angular.module('starter.controllers', [])
           apiFactory.deleteImage(id).success(function(){
             getPhotos();
           }).error(function(){
+            $scope.error = "Fel när vi försökte ta bort din bild";
           })
           return true;
         },
@@ -71,10 +73,10 @@ angular.module('starter.controllers', [])
         $scope.error = JSON.parse(d.response).error;
         getPhotos();
       },function(err){
-        console.err(err);
+        $scope.error = "Fel när vi försökte ladda upp din bild";
       })
     }, function(err) {
-
+        $scope.error = "Fel när vi försökte ladda upp din bild";
     });
   }
 
@@ -85,10 +87,10 @@ angular.module('starter.controllers', [])
         $scope.error = JSON.parse(d.response).error;
         getPhotos();
       },function(err){
-        console.err(err);
+        $scope.error = "Fel när vi försökte ladda upp din bild";
       })
     }, function(err) {
-
+        $scope.error = "Fel när vi försökte ladda upp din bild";
     });
   }
 
@@ -104,6 +106,7 @@ angular.module('starter.controllers', [])
 
 .controller('SettingsCtrl', function($scope,auth, $state, store, apiFactory,$ionicLoading){
   $scope.frozen = false;
+  $scope.error;
   $scope.update = {};
   $scope.update.lookingFor = [
 {
@@ -119,6 +122,7 @@ angular.module('starter.controllers', [])
   getProfile();
 
   function getProfile(){
+    $scope.error;
     $ionicLoading.show({
       template: 'Laddar...' 
     });
@@ -137,6 +141,7 @@ angular.module('starter.controllers', [])
       })
       $ionicLoading.hide();
     }).error(function(error){
+      $scope.error = "Fel när vi försökte ladda dina inställningar";
       $ionicLoading.hide();
     });
   }
@@ -146,7 +151,7 @@ angular.module('starter.controllers', [])
           $state.go('app.profile')
         } 
       }).error(function(){
-        console.log("error");  
+        $scope.error = "Fel när vi försökte uppdatera dina inställningar";
       }); 
    }
 $scope.logout = function() {
@@ -160,9 +165,11 @@ $scope.logout = function() {
 
 .controller('ProfileCtrl', function($scope,apiFactory,$ionicLoading,$ionicSlideBoxDelegate,$location) {
   $scope.profile;
+  $scope.error;
   getProfile();
 
   function getProfile(){
+    $scope.error;
     $ionicLoading.show({
       template: 'Laddar...' 
     });
@@ -176,17 +183,20 @@ $scope.logout = function() {
       $ionicLoading.hide();
     }).error(function(error){
       $ionicLoading.hide();
+      $scope.error = "Fel när vi försökte ladda din profil";
     });
   }
 })
 .controller('EditProfileCtrl',function($scope,apiFactory,$location,$ionicLoading) {
   $scope.educations;
+  $scope.error;
   $scope.update = {}
   $scope.genders = ['Man','Kvinna']
   getEducations();
   getProfile();
 
   $scope.updateProfile = function(){
+    $scope.error;
     apiFactory.updateProfile($scope.update).success(function(data){
       if(data.success){
         $location.path('app/profile')
@@ -194,11 +204,12 @@ $scope.logout = function() {
         $scope.error = "Fel när vi försökte spara din data";
       } 
     }).error(function(){
-      console.log("error") 
+       $scope.error = "Fel när vi försökte spara din data";
     })
   }
 
   function getProfile(){
+    $scope.error;
     $ionicLoading.show({
       template: 'Laddar...' 
     });
@@ -209,6 +220,7 @@ $scope.logout = function() {
       $scope.update.gender = data.gender;
       $ionicLoading.hide();
     }).error(function(error){
+      $scope.error = "Fel när vi försökte ladda dina inställningar";
       $ionicLoading.hide();
     });
   }
@@ -217,24 +229,63 @@ $scope.logout = function() {
     apiFactory.getEducations().success(function(data){
       $scope.educations = data;
     }).error(function(error){
-      console.log("error loading educations")
+      $scope.error = "Fel när vi försökte ladda utbildningar.";
     })
   } 
 
 
 
 })
-.controller('FindMatchCtrl', function($scope,apiFactory,$ionicLoading,$ionicSlideBoxDelegate) {
+.controller('FindMatchCtrl', function($scope,apiFactory,
+      $ionicLoading,
+      $ionicSlideBoxDelegate,
+      $timeout) {
   $scope.matches;
+  $scope.error;
+  $scope.fadeout = false;
   findMatches();
 
   $scope.approve = function(){
-    removeMatch(); 
-
+    $scope.error;
+    data = {'matched': $scope.matches[0].id, 'liked': true }
+    apiFactory.reportMatch(data).success(function(){
+      $scope.fadeout = true;
+      $timeout(function(){
+        removeMatch(); 
+        $scope.fadeout = false;
+      },1000);
+    }).error(function(err){
+      $scope.error = "Fel när vi försökte gilla din matchning";
+    });
   }
-  
+   $scope.decline = function(){
+    $scope.error;
+    data = {'matched': $scope.matches[0].id, 'liked': false }
+    apiFactory.reportMatch(data).success(function(){
+      $scope.fadeout = true;
+      $timeout(function(){
+        removeMatch(); 
+        $scope.fadeout = false;
+      },1000);
+    }).error(function(err){
+      $scope.error = "Fel när vi försökte skippa din matchning";
+    });
+  } 
+
+  $scope.animation = function(){
+    if($scope.fadeout){
+      return 'fade-out';
+    }
+  }
   function removeMatch(){
     $scope.matches.splice(0,1);
+    if($scope.matches.length == 0){
+      findMatches();
+    }
+    $timeout(function(){
+      $ionicSlideBoxDelegate.slide(0,0);
+      $ionicSlideBoxDelegate.update();
+    },1000);
   }
 
   function findMatches(){
@@ -245,10 +296,11 @@ $scope.logout = function() {
     apiFactory.findMatches().success(function(data){
       console.log(data);
       $scope.matches = data;
+      $ionicSlideBoxDelegate.slide(0,0);
       $ionicSlideBoxDelegate.update();
       $ionicLoading.hide();
     }).error(function(err){
-      console.log(err);
+      $scope.error = "Fel när vi försökte hämta matchningar, försök igen senare";
       $ionicLoading.hide();
     });
   }

@@ -1,5 +1,8 @@
 <ion-view title="Hitta Personer">
 <ion-content>
+<div class="error">
+  {{error}}
+</div>
 <div class="matches">
   <div ng-show="matches.length == 0" class="no-match padding">
     <p class="no-match">Vi lyckas inte hitta några matchningar just nu, kom tillbaka senare eller
@@ -13,20 +16,20 @@
     </div>
   </div>
 
-  <div class="match" ng-hide="matches.length == 0">
-    <ion-slide-box show-pager="true" does-continue="true" auto-play="true" on-slide-changed="slideHasChanged($index)">
+  <div class="match" ng-class="animation()" ng-hide="matches.length == 0">
+    <ion-slide-box does-continue="true" auto-play="true">
     <ion-slide ng-repeat="image in matches[0].images_url">
     <img class="slider-images" ng-style="{'background-image': 'url(' + image
     + ')'}">
     </ion-slide>
     </ion-slide-box>
-    <div class="edu">
+    <div ng-hide="matches.length == 0" class="edu">
       <img ng-src="{{matches[0].education.image_path}}">
     </div>
     <h3>{{matches[0].name}}</h3>
     <p class="edu-text">{{matches[0].education.name}}</p>
     <p>{{matches[0].description}}</p>
-    <div class="row decide padding">
+    <div ng-hide="matches.length == 0" class="row decide padding">
     <button class="button round red" ng-click="decline()">
       <i class="ion-close"></i>
     </button>

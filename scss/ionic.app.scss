@@ -23,6 +23,17 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 textarea{
   min-height:150px;
 }
+.error{
+  background-color: $assertive;
+  color:$light;
+  text-align:center;
+  font-size:8pt;
+}
+.fade-out{
+  -webkit-opacity: 0!important;
+  -moz-opacity: 0!important;
+  opacity: 0!important;
+}
 .break-line{
   width:100%;
   height:1px;
@@ -53,30 +64,32 @@ textarea{
     }
   }
   .match{
-   opacity: 1;
-   transition: opacity .25s ease-in-out;
-   -moz-transition: opacity .25s ease-in-out;
-   -webkit-transition: opacity .25s ease-in-out;
-   }
-    .edu{
-      position:relative;
-      width:80px;
-      height:80px;
-      border-radius:100%;
-      background-color:#dadada;
-      margin: -80px auto 10px auto;
-      z-index:10; 
-      &.find-match{
-        margin: -90px auto 0 auto;
-      }
-      img{
-        width:70px;
-        margin:5px;
-        border-radius: 100%;
-      }
+    opacity: 1;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+  
+  .edu{
+    position:relative;
+    width:80px;
+    height:80px;
+    border-radius:100%;
+    background-color:#dadada;
+    margin: -80px auto 10px auto;
+    z-index:10; 
+    &.find-match{
+      margin: -90px auto 0 auto;
     }
-    .decide{
-      width:100%;
+    img{
+      width:70px;
+      margin:5px;
+      border-radius: 100%;
+    }
+  }
+  .decide{
+    width:100%;
     button.round{
       width:70px;
       font-size:26pt;
@@ -88,27 +101,25 @@ textarea{
       text-align:center;
       margin:auto;
       &.red{
-
-      color: $assertive;
-      border-color: $assertive;
-      
+        color: $assertive;
+        border-color: $assertive;
       }
     }
   }
-    .slider{
-      width:280px;
-      margin: 20px auto;
-    }
-    .slider-images{
-      border: 4px solid $stable;
-      width:280px;
-      height:280px;
-      margin:auto;
-      display: inline-block;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position:center;
-    }
+  .slider{
+    width:280px;
+    margin: 20px auto;
+  }
+  .slider-images{
+    border: 4px solid $stable;
+    width:280px;
+    height:280px;
+    margin:auto;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:center;
+  }
   }
 }
 #edit-photos{

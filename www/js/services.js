@@ -56,6 +56,10 @@ angular.module('starter.services', [])
     return $http.get(urlBase + '/matches/find');
   }
   
+  apiFactory.reportMatch = function(data){
+    return $http.post(urlBase + '/report/',data);
+  }
+
   apiFactory.uploadImage = function(imageURI,suCall,erCall){
 
     var ft = new FileTransfer(),

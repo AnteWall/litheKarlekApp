@@ -1,9 +1,11 @@
 <ion-view title="Inställningar">
 <ion-content>
+<div class="error">
+  {{error}}
+</div>
 <div class="settings"> 
   <h3>Visa mig för</h3>
-  <ion-checkbox ng-repeat="item in update.lookingFor"
-  ng-model="item.isChecked">{{item.displayName}}</ion-checkbox>
+  <ion-checkbox ng-repeat="item in update.lookingFor" ng-model="item.isChecked">{{item.displayName}}</ion-checkbox>
   <h3>Övrigt</h3>
   <ion-toggle ng-model="update.frozen" toggle-class="toggle-assertive">Frys
   konto</ion-toggle>
