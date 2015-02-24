@@ -187,6 +187,49 @@ $scope.logout = function() {
     });
   }
 })
+
+.controller('MatchesCtrl',function($scope,apiFactory,$location,$ionicLoading) {
+  $scope.matches;
+
+  getProfile();
+  $scope.getName = function(match){
+    if(match.user_1.name == $scope.name){
+      return match.user_2.name
+    }
+    return match.user_1.name
+  }
+  $scope.getImage = function(match){
+
+    if(match.user_1.name == $scope.name){
+      return match.user_2.images_url[0];
+    }
+    return match.user_1.images_url[0];
+  }
+  function getMatches(){
+    apiFactory.getMatches().success(function(data){
+      $scope.matches = data;
+      console.log(data)
+      $ionicLoading.hide();
+    }).error(function(err){
+       $scope.error = "Fel när vi försökte läsa dina matchningar";
+       $ionicLoading.hide();
+    });
+  }
+
+  function getProfile(){
+    $scope.error;
+    $ionicLoading.show({
+      template: 'Laddar...' 
+    });
+    apiFactory.getProfile().success(function(data){
+      $scope.name = data.name;
+      getMatches();
+    }).error(function(error){
+      $scope.error = "Fel när vi försökte ladda dina inställningar";
+      $ionicLoading.hide();
+    });
+  }
+})
 .controller('EditProfileCtrl',function($scope,apiFactory,$location,$ionicLoading) {
   $scope.educations;
   $scope.error;

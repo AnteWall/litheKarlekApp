@@ -1,0 +1,19 @@
+<ion-view title="Matchningar">
+<ion-content>
+<div class="error">
+  {{error}}
+</div>
+<div class="good-matches padding"> 
+  <div class="match" ng-repeat="match in matches">
+    <img class="slider-images" ng-style="{'background-image': 'url(' +
+    getImage(match) +')'}">
+    <p>{{getName(match)}}</p>
+    <i class="icon ion-chatbubbles"></i>
+    <div class="break-line"></div>
+  </div> 
+  <button class="button button-positive button-block" ng-click="">
+    Test knapp
+  </button>
+</div>
+</ion-content>
+</ion-view>

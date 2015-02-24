@@ -55,7 +55,11 @@ angular.module('starter.services', [])
   apiFactory.findMatches = function(){
     return $http.get(urlBase + '/matches/find');
   }
-  
+ 
+  apiFactory.getMatches = function(){
+    return $http.get(urlBase + '/matches/');
+  }
+ 
   apiFactory.reportMatch = function(data){
     return $http.post(urlBase + '/report/',data);
   }

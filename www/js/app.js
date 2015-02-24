@@ -71,6 +71,15 @@ angular.module('starter', ['ionic',
       }
     }
   })
+  .state('app.matches',{
+    url: '/matches',
+    views: {
+      'menuContent':{
+        templateUrl: "templates/matches.html",
+        controller: 'MatchesCtrl'
+      }
+    }
+  })
 .state('app.findmatch', {
       url: "/findmatch",
       views: {
