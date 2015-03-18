@@ -1,0 +1,27 @@
+<ion-view title="{{match}}" >
+<ion-content on-scroll="loadMoreScroll()">
+<div class="error">
+  {{error}}
+</div>
+<div class="messages">
+<div class="message-board">
+  <p ng-hide="messages.length > 0" class="no-msg">Ni har inte skickat några
+  meddelanden till varandra än än. Varför inte börja du?!</p>
+
+  <div class="msg" ng-repeat="message in messages | orderBy: 'created_at'">
+    <p class="bubble" ng-class="sentClass(message)">
+      {{message.message}}
+    </p>
+  </div>
+</div>
+</div>
+</ion-content>
+<ion-footer-bar align-title="left" class="bar-stable">
+ <label class="item-input-wrapper">
+    <input ng-model="message.message" type="search" placeholder="Meddelande...">
+  </label>
+  <div class="buttons" ng-click="sendMessage()">
+    <button class="button button-royal">Skicka</button>
+  </div>
+</ion-footer-bar>
+</ion-view>

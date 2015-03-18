@@ -71,6 +71,21 @@ angular.module('starter', ['ionic',
       }
     }
   })
+  .state('app.messages',{
+    url: '/messages/:match',
+    views: {
+      'menuContent':{
+        templateUrl: "templates/messages.html",
+        controller: 'MessageCtrl'
+      }
+    },
+    resolve: {
+      match: function($stateParams){
+        return $stateParams.match;
+      }
+    }
+  })
+ 
   .state('app.matches',{
     url: '/matches',
     views: {

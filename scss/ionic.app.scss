@@ -34,27 +34,76 @@ textarea{
   -moz-opacity: 0!important;
   opacity: 0!important;
 }
+.messages{
+  .message-board{
+    p.no-msg{
+      text-align:center;
+      font-weight:bold;
+      font-size:10pt;
+      color:#808080;
+      padding:50px;
+    }
+    .msg{
+      position:relative;
+      width:100%;
+      display:table;
+      .bubble{
+        margin:10px 10px 30px 10px;
+        position: relative;
+        max-width: 70%;
+        min-width:55px;
+        padding: 10px;
+        background: $royal;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+      }
+      .bubble:after {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        border-width: 15px 13px 0;
+        border-color: $royal transparent;
+        display: block;
+        width: 0;
+        z-index: 1;
+        bottom: -15px;
+        left: 18px;
+      }
+      .reply{
+        float:right;
+        background: $energized;
+        right:0;
+      }
+      .reply:after{
+        left:auto;
+        right:18px;
+        border-color: $energized transparent;
+      }
+    }
+  }
+}
 .popup{
   text-align:center;
   background-color:rgba(0,0,0,0);
   p{
     font-size:8pt;
   }
-    img{
-      text-align:center;
-      display:inline-block;
-      vertical-align:middle;
-      border: 4px solid $stable;
-      width:60px;
-      border-radius:100%;
-      height:60px;
-      margin: 10px auto;
-      display: inline-block;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position:center;
+  img{
+    text-align:center;
+    display:inline-block;
+    vertical-align:middle;
+    border: 4px solid $stable;
+    width:60px;
+    border-radius:100%;
+    height:60px;
+    margin: 10px auto;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:center;
 
-    }
+  }
 }
 .break-line{
   width:100%;
@@ -71,8 +120,17 @@ textarea{
 
     vertical-align:middle;
     p{
+      &.unread{
+        float:right;
+        margin-top:35px;
+        background-color:$assertive;
+        font-size:12pt;
+        padding: 5px 10px;
+        border-radius:50px;
+        color:white;
+        font-weight:bold;
+      }
       display:inline-block;
-      vertical-align:middle;
       margin: 2px 0 0 0;
     }
     .ion-chatbubbles{

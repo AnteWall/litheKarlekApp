@@ -7829,6 +7829,46 @@ textarea {
   -moz-opacity: 0 !important;
   opacity: 0 !important; }
 
+.messages .message-board p.no-msg {
+  text-align: center;
+  font-weight: bold;
+  font-size: 10pt;
+  color: #808080;
+  padding: 50px; }
+.messages .message-board .msg {
+  position: relative;
+  width: 100%;
+  display: table; }
+  .messages .message-board .msg .bubble {
+    margin: 10px 10px 30px 10px;
+    position: relative;
+    max-width: 70%;
+    min-width: 55px;
+    padding: 10px;
+    background: #8a6de9;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px; }
+  .messages .message-board .msg .bubble:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 15px 13px 0;
+    border-color: #8a6de9 transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+    bottom: -15px;
+    left: 18px; }
+  .messages .message-board .msg .reply {
+    float: right;
+    background: #f0b840;
+    right: 0; }
+  .messages .message-board .msg .reply:after {
+    left: auto;
+    right: 18px;
+    border-color: #f0b840 transparent; }
+
 .popup {
   text-align: center;
   background-color: rgba(0, 0, 0, 0); }
@@ -7861,8 +7901,16 @@ textarea {
   vertical-align: middle; }
   .good-matches .match p {
     display: inline-block;
-    vertical-align: middle;
     margin: 2px 0 0 0; }
+    .good-matches .match p.unread {
+      float: right;
+      margin-top: 35px;
+      background-color: #ef4e3a;
+      font-size: 12pt;
+      padding: 5px 10px;
+      border-radius: 50px;
+      color: white;
+      font-weight: bold; }
   .good-matches .match .ion-chatbubbles {
     float: right;
     font-size: 24pt;

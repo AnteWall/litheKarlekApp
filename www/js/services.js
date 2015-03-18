@@ -64,6 +64,14 @@ angular.module('starter.services', [])
     return $http.post(urlBase + '/report/',data);
   }
 
+  apiFactory.getMessages = function(matchID,limit,offset){
+    return $http.get(urlBase + '/matches/' + matchID + '/messages?offset='+offset+'&limit='+limit);
+  }
+  
+  apiFactory.sendMessage = function(data){
+    return $http.post(urlBase + '/message', data);
+  }
+
   apiFactory.uploadImage = function(imageURI,suCall,erCall){
 
     var ft = new FileTransfer(),

@@ -163,7 +163,7 @@ $scope.logout = function() {
 }
 })
 
-.controller('ProfileCtrl', function($scope,apiFactory,$ionicLoading,$ionicSlideBoxDelegate,$location) {
+.controller('ProfileCtrl', function($scope,apiFactory,$ionicLoading,$ionicSlideBoxDelegate,$location,store) {
   $scope.profile;
   $scope.error;
   getProfile();
@@ -178,6 +178,7 @@ $scope.logout = function() {
       if(data.name == undefined || data.name == ""){
         $location.path('app/editprofile')
       }
+      store.set("user_id", data.id)
       $scope.profile = data;
       $ionicSlideBoxDelegate.update();
       $ionicLoading.hide();
@@ -225,7 +226,7 @@ $scope.logout = function() {
       $scope.name = data.name;
       getMatches();
     }).error(function(error){
-      $scope.error = "Fel när vi försökte ladda dina inställningar";
+      $scope.error = "Fel när vi försökte läsa dina matchningar";
       $ionicLoading.hide();
     });
   }
@@ -279,6 +280,71 @@ function getEducations(){
 
 
 })
+
+.controller('MessageCtrl',function($scope,match,apiFactory,$ionicLoading,$ionicScrollDelegate,store){
+  $scope.messages = [];
+  $scope.message = {};
+  $scope.offset = 0;
+  $scope.limit = 10;
+  $scope.match = "Karin";
+  $scope.message.id = match;
+  $scope.checkScroll = true;
+  $scope.message.user_id = store.get("user_id");
+  loadMessages();
+  $scope.sendMessage = function(){
+    if($scope.message.message == ""){
+      return;
+    }
+    apiFactory.sendMessage($scope.message).success(function(data){
+      $scope.messages.push(angular.copy($scope.message))
+      $scope.message.message = ""; 
+      $ionicScrollDelegate.scrollBottom();
+    }).error(function(){
+      $scope.error = "Fel när vi försökte skicka ditt meddelande." 
+    })
+  }
+
+  $scope.sentClass = function(msg){
+    if(store.get("user_id") == msg.user_id){
+      return "reply";
+    }
+    return;
+  }
+  $scope.loadMoreScroll = function(){
+    if($scope.checkScroll){
+    if($ionicScrollDelegate.getScrollPosition().top < 30){
+      $scope.offset += $scope.limit;
+      height = $ionicScrollDelegate.getScrollView().__maxScrollTop;
+      loadMessages(height);
+    } 
+    }
+  }
+  function loadMessages(scrollTo){
+    $scope.checkScroll = false;
+    apiFactory.getMessages($scope.message.id,$scope.limit,$scope.offset).success(function(data){
+      console.log(data)
+      angular.forEach(data,function(msg){
+        $scope.messages.push(msg);
+      });
+
+      $ionicScrollDelegate.resize();
+      if(scrollTo == undefined){
+        console.log("bottom!");
+        $ionicScrollDelegate.scrollBottom();
+      }else{
+        console.log("scrollTo!",scrollTo);
+        $ionicScrollDelegate.scrollTo(0,scrollTo,false);
+      }
+      if(data.length > 0){
+        $scope.checkScroll = true;
+      }
+    }).error(function(){
+      $scope.error = "Fel när vi försökte ladda dina meddelanden";
+    })
+  }
+
+})
+
 .controller('FindMatchCtrl', function($scope,apiFactory,
       $ionicLoading,
       $ionicSlideBoxDelegate,
@@ -360,7 +426,6 @@ function getEducations(){
           });
 
           apiFactory.findMatches().success(function(data){
-            console.log(data);
             $scope.matches = data;
             $ionicSlideBoxDelegate.slide(0,0);
             $ionicSlideBoxDelegate.update();

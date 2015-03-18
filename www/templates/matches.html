@@ -4,10 +4,12 @@
   {{error}}
 </div>
 <div class="good-matches padding"> 
-  <div class="match" ng-repeat="match in matches">
+  <div ng-click="go('app/messages/'+ match.id)" class="match" ng-repeat="match
+    in matches">
     <img class="slider-images" ng-style="{'background-image': 'url(' +
     getImage(match) +')'}">
     <p>{{getName(match)}}</p>
+    <p ng-show="match.unread > 0" class="unread">{{match.unread}}</p>
     <i class="icon ion-chatbubbles"></i>
     <div class="break-line"></div>
   </div> 
